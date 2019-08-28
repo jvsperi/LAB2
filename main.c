@@ -1,26 +1,17 @@
-#include <stdio.h>
-#include <stdlib.h>
-#define COLUMNS 60
-#define ROWS 25
+/* 
+Jogo interativo Tetris Implementado em linguagem C para uso no console (terminal de comandos)
 
-void init(char matrix[ROWS][COLUMNS]){
-    int i,j;
-    for (i=0;i<ROWS;i++){
-        for (j=0;j<COLUMNS;j++){
-            matrix[i][j] = 219;
-        }
-    }
-}
-void printMatrix(char matrix[ROWS][COLUMNS]){
-    int i,j;
-    for (i=0;i<ROWS;i++){
-        for (j=0;j<COLUMNS;j++){
-            printf("%c",matrix[i][j]);
-        }
-        printf("\n");
-    }
-} 
+Para executar
+> start programa.exe
 
+Autor João Victor Speri da Silva
+Data 28/08/2019
+*/
+
+#include "tetris.h"
+/* 
+    Parte principal do programa, responsavel por iniciar e chamar as funções auxiliares.
+*/
 int main(){
     char matrix[ROWS][COLUMNS];
     int posI,posJ;
@@ -44,5 +35,4 @@ int main(){
     system("pause");
 
     return 0;
-    
 }
