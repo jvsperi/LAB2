@@ -9,6 +9,8 @@ Data 28/08/2019
 */
 
 #include "tetris.h"
+#include "display.h"
+
 /* 
     Parte principal do programa, responsavel por iniciar e chamar as funções auxiliares.
 */
@@ -16,20 +18,25 @@ int main(){
     char matrix[ROWS][COLUMNS];
     int posI,posJ;
     //posicao inicial do personagem
-    posI = ROWS / 2;
+    posI = ROWS / ROWS;
     posJ = COLUMNS / 2;
     //inicializando matriz
     init(matrix);
+    
+    //apagar cursor da tela 
+
+    ShowConsoleCursor(0);
+    system("cls");
 
     while(1){
-    system("cls");
+        gotoxy(0,0);
    
     matrix[posI][posJ] = ' ';
     
     printMatrix(matrix);
 
     matrix[posI][posJ] = 219;
-    if(posJ < COLUMNS) posJ++;
+    if(posI < ROWS) posI++;
     }
 
     system("pause");
