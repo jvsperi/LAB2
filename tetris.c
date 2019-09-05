@@ -18,10 +18,8 @@ void init(char matrix[ROWS][COLUMNS]){
             else if ((j==59) && (i==0)) matrix[i][j] = (char)187;
             else if ((j==0) && (i==24)) matrix[i][j] = (char)200;
             else if ((j==0) && (i==0)) matrix[i][j] = (char)201;   
-            else if (i==0) matrix[i][j] = (char)205;
-            else if (i==24) matrix[i][j] = (char)205;
-            else if (j==0) matrix[i][j] = (char)186;
-            else if (j==59) matrix[i][j] = (char)186;
+            else if ((i==0) || (i==24)) matrix[i][j] = (char)205; //alterei
+            else if ((j==0) || (j==59)) matrix[i][j] = (char)186; //alterei
             else matrix[i][j] = ' ';
         }     
     }
