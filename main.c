@@ -31,12 +31,12 @@ int main(){
     while(1){
         gotoxy(0,0);
    
-    matrix[posI][posJ] = ' ';
+    matrix[posI][posJ] = (char)219;
     
     printMatrix(matrix);
 
-    matrix[posI][posJ] = 219;
-    if(posI < ROWS) posI++;
+    matrix[posI][posJ] = ' ';
+    if(posI < 23) posI++;
     }
 
     system("pause");
