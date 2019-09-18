@@ -10,7 +10,7 @@ Data 28/08/2019
 /*
 Inicializa a matriz principal com espaços vazios
 */
-void init(char matrix[ROWS][COLUMNS]){
+/*void init(char matrix[ROWS][COLUMNS]){
     int i,j;
     for (i=0;i<ROWS;i++){
         for (j=0;j<COLUMNS;j++){
@@ -23,16 +23,40 @@ void init(char matrix[ROWS][COLUMNS]){
             else matrix[i][j] = ' ';
         }     
     }
+}*/
+void init(char matrix[ROWS][COLUMNS]){
+    int i,j;
+
+    for(i=0; i<ROWS; i++){
+        for(j=0; j<COLUMNS; j++){
+            matrix[i][j] = ' ';
+        }
+    }
 }
 /*
 Mostra o conteúdo da matriz principal na tela do computador
 */
 void printMatrix(char matrix[ROWS][COLUMNS]){
     int i,j;
+    char a = 205, b = 186;
+
+
+    //linha de cima
+     printf("\t\t\t");
+    for(j=0; j<COLUMNS+2; j++){
+        printf("%c",a);
+    }
+    printf("\n");
     for (i=0;i<ROWS;i++){
+        printf("\t\t\t%c",b);
         for (j=0;j<COLUMNS;j++){
                 printf("%c",matrix[i][j]);
         }
-        printf("\n");
+        printf("%c\n",b);
+    }
+    //linha de baixo
+    printf("\t\t\t");
+    for(j=0; j<COLUMNS+2; j++){
+        printf("%c",a);
     }
 } 

@@ -30,13 +30,13 @@ int main(){
 
     while(1){
         gotoxy(0,0);
-   
+   //posicionar o simbolo no meio da tela
     matrix[posI][posJ] = (char)219;
     
     printMatrix(matrix);
-
+    //faça posição anterior do @ ser apagada
     matrix[posI][posJ] = ' ';
-    if(posI < 23) posI++;
+    if(posI < (ROWS-1)) posI++;
     }
 
     system("pause");
