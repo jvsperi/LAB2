@@ -10,18 +10,22 @@ Data 28/08/2019
 
 #include "tetris.h"
 #include "display.h"
-
+#define DEBUG 0
 
 /* 
     Parte principal do programa, responsavel por iniciar e chamar as funções auxiliares.
 */
 int main(){
     char matrix[ROWS][COLUMNS];
-    int posI,posJ;
     int keypressed = 0;
+    Bloco tijolo;
     //posicao inicial do personagem
-    posI = 0;
-    posJ = COLUMNS / 2;
+    tijolo.i = 0;
+    tijolo.j = COLUMNS / 2;
+    tijolo.tipo = TIPO_I;
+    tijolo.width = 1;
+    tijolo.height = 4;
+    tijolo.orientacao = ORIENTACAO_LEFT;
     //inicializando matriz
     init(matrix);
     
@@ -31,15 +35,47 @@ int main(){
     system("cls");
 
     // 27 = tecla esc
-    while(keypressed != 27){
+    while(keypressed != ESC){
         gotoxy(0,0);
+
+        #if DEBUG == 1
+            printf("\t %c = (%d,%d)\n",219, tijolo.i, tijolo.j);
+        #endif
+
    //posicionar o simbolo no meio da tela
-    matrix[posI][posJ] = (char)219;
+    switch(tijolo.orientacao){
+        case ORIENTACAO_UP:
+            if(tijolo.i-3>=0) matrix[tijolo.i-3][tijolo.j] = PIXEL;
+            if(tijolo.i-2>=0) matrix[tijolo.i-2][tijolo.j] = PIXEL;
+            if(tijolo.i-1>=0)matrix[tijolo.i-1][tijolo.j] = PIXEL;
+            matrix[tijolo.i][tijolo.j] = PIXEL;
+            break;
+        case ORIENTACAO_LEFT:
+            if(tijolo.j < COLUMNS) matrix[tijolo.i][tijolo.j-3] = PIXEL;
+            if(tijolo.j > 0) matrix[tijolo.i][tijolo.j-2] = PIXEL;
+            matrix[tijolo.i][tijolo.j-1] = PIXEL;
+            matrix[tijolo.i][tijolo.j] = PIXEL;
+        break; 
+   }
     
     printMatrix(matrix);
     //faça posição anterior do @ ser apagada
-    matrix[posI][posJ] = ' ';
-    if(posI < (ROWS-1)) posI++;
+    switch(tijolo.orientacao){
+        case ORIENTACAO_UP: 
+            if(tijolo.i-3>=0) matrix[tijolo.i-3][tijolo.j] = EMPTY;
+            if(tijolo.i-2>=0) matrix[tijolo.i-2][tijolo.j] = EMPTY;
+            if(tijolo.i-1>=0) matrix[tijolo.i-1][tijolo.j] = EMPTY;
+            matrix[tijolo.i][tijolo.j] = EMPTY;
+            break;
+        case ORIENTACAO_LEFT:    
+            if(tijolo.j < COLUMNS) matrix[tijolo.i][tijolo.j-3] = EMPTY;
+            if(tijolo.j > 0) matrix[tijolo.i][tijolo.j-2] = EMPTY;
+            matrix[tijolo.i][tijolo.j-1] = EMPTY;
+            matrix[tijolo.i][tijolo.j] = EMPTY;
+            break;
+    }
+    
+    if(tijolo.i < (ROWS-1)) tijolo.i++;
 
     //lendo teclas
     keypressed = 0;
@@ -48,10 +84,10 @@ int main(){
                 switch(keypressed){
                 case LEFT:
                 case TECLA_a: 
-                case TECLA_A :if (posJ > 0) posJ--;break; //p esquerda
+                case TECLA_A :if (tijolo.j > 0) tijolo.j--;break; //p esquerda
                 case TECLA_d:
                 case RIGHT: 
-                case TECLA_D: if (posJ < COLUMNS-1) posJ++;break; // p direita
+                case TECLA_D: if (tijolo.j < COLUMNS-1) tijolo.j++;break; // p direita
         }
     }
     printf("\n");

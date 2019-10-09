@@ -16,7 +16,7 @@ void init(char matrix[ROWS][COLUMNS]){
 
     for(i=0; i<ROWS; i++){
         for(j=0; j<COLUMNS; j++){
-            matrix[i][j] = ' ';
+            matrix[i][j] = EMPTY;
         }
     }
 }
