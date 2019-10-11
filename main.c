@@ -10,7 +10,7 @@ Data 28/08/2019
 
 #include "tetris.h"
 #include "display.h"
-#define DEBUG 0
+#define DEBUG 1
 
 /* 
     Parte principal do programa, responsavel por iniciar e chamar as funções auxiliares.
@@ -43,37 +43,12 @@ int main(){
         #endif
 
    //posicionar o simbolo no meio da tela
-    switch(tijolo.orientacao){
-        case ORIENTACAO_UP:
-            if(tijolo.i-3>=0) matrix[tijolo.i-3][tijolo.j] = PIXEL;
-            if(tijolo.i-2>=0) matrix[tijolo.i-2][tijolo.j] = PIXEL;
-            if(tijolo.i-1>=0)matrix[tijolo.i-1][tijolo.j] = PIXEL;
-            matrix[tijolo.i][tijolo.j] = PIXEL;
-            break;
-        case ORIENTACAO_LEFT:
-            if(tijolo.j < COLUMNS) matrix[tijolo.i][tijolo.j-3] = PIXEL;
-            if(tijolo.j > 0) matrix[tijolo.i][tijolo.j-2] = PIXEL;
-            matrix[tijolo.i][tijolo.j-1] = PIXEL;
-            matrix[tijolo.i][tijolo.j] = PIXEL;
-        break; 
-   }
+    drawBar(matrix,tijolo,PIXEL);
     
     printMatrix(matrix);
+
     //faça posição anterior do @ ser apagada
-    switch(tijolo.orientacao){
-        case ORIENTACAO_UP: 
-            if(tijolo.i-3>=0) matrix[tijolo.i-3][tijolo.j] = EMPTY;
-            if(tijolo.i-2>=0) matrix[tijolo.i-2][tijolo.j] = EMPTY;
-            if(tijolo.i-1>=0) matrix[tijolo.i-1][tijolo.j] = EMPTY;
-            matrix[tijolo.i][tijolo.j] = EMPTY;
-            break;
-        case ORIENTACAO_LEFT:    
-            if(tijolo.j < COLUMNS) matrix[tijolo.i][tijolo.j-3] = EMPTY;
-            if(tijolo.j > 0) matrix[tijolo.i][tijolo.j-2] = EMPTY;
-            matrix[tijolo.i][tijolo.j-1] = EMPTY;
-            matrix[tijolo.i][tijolo.j] = EMPTY;
-            break;
-    }
+    drawBar(matrix,tijolo,EMPTY);
     
     if(tijolo.i < (ROWS-1)) tijolo.i++;
 
@@ -88,6 +63,11 @@ int main(){
                 case TECLA_d:
                 case RIGHT: 
                 case TECLA_D: if (tijolo.j < COLUMNS-1) tijolo.j++;break; // p direita
+                case TECLA_ESPACO: 
+                    if(tijolo.orientacao==ORIENTACAO_RIGHT)
+                        tijolo.orientacao = ORIENTACAO_UP;
+                    else
+                        tijolo.orientacao++;
         }
     }
     printf("\n");

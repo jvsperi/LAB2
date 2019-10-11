@@ -19,10 +19,11 @@ Data 28/08/2019
 #define TECLA_d 100
 #define TECLA_A 65
 #define TECLA_D 68
+#define TECLA_ESPACO 32
 //orientacoes das peças
 #define ORIENTACAO_UP 1
-#define ORIENTACAO_DOWN 2 
-#define ORIENTACAO_LEFT 3 
+#define ORIENTACAO_DOWN 3 
+#define ORIENTACAO_LEFT 2
 #define ORIENTACAO_RIGHT 4
 // tipos das peças
 #define TIPO_L 1
@@ -54,3 +55,7 @@ void init(char matrix[ROWS][COLUMNS]);
 Mostra o conteúdo da matriz principal na tela do computador
 */
 void printMatrix(char matrix[ROWS][COLUMNS]);
+
+//desenhar barra usando simbolo do caracter
+void drawBar(char matrix[ROWS][COLUMNS], Bloco barra, int simbolo);
+
