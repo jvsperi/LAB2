@@ -9,8 +9,8 @@ Data 28/08/2019
 #include <stdlib.h>
 #include <conio.h>
 //config. dimensões da matriz principal do jogo
-#define COLUMNS 60
-#define ROWS 25
+#define COLUMNS 30
+#define ROWS 60
 #define ARROWS 224
 #define LEFT 75
 #define RIGHT 77
