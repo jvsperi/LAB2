@@ -10,7 +10,7 @@ Data 28/08/2019
 
 #include "tetris.h"
 #include "display.h"
-#define DEBUG 1
+#define DEBUG 0
 
 /* 
     Parte principal do programa, responsavel por iniciar e chamar as funções auxiliares.
@@ -19,20 +19,16 @@ int main(){
     char matrix[ROWS][COLUMNS];
     int keypressed = 0;
     Bloco tijolo;
-    //posicao inicial do personagem
-    tijolo.i = 0;
-    tijolo.j = COLUMNS / 2;
-    tijolo.tipo = TIPO_I;
-    tijolo.width = 5;
-    tijolo.height = 1;
-    tijolo.orientacao = ORIENTACAO_LEFT;
-    //inicializando matriz
-    init(matrix);
-    
-    //apagar cursor da tela 
 
+    //posicao inicial tijolo
+    initBar(&tijolo);
+
+    //apagar cursor da tela 
     ShowConsoleCursor(0);
     system("cls");
+
+    //inicializando matriz
+    init(matrix);
 
     // 27 = tecla esc
     while(keypressed != ESC){
@@ -49,10 +45,13 @@ int main(){
     printMatrix(matrix);
 
     //faça posição anterior do @ ser apagada
-    drawBar(matrix,tijolo,EMPTY);
-    
-    if(tijolo.i < (ROWS-1)) tijolo.i++;
-
+    if(!collisionDetect(matrix, tijolo)){
+        drawBar(matrix,tijolo,EMPTY);
+        //posicao da @ ir para direita
+        if(tijolo.i < (ROWS-1)) tijolo.i++;
+    }else{
+        initBar(&tijolo);
+    }
     //lendo teclas
     keypressed = 0;
     if(kbhit()) keypressed = getch();
@@ -64,26 +63,11 @@ int main(){
                 case TECLA_d:
                 case RIGHT: 
                 case TECLA_D: if (tijolo.j + (tijolo.width/2) < COLUMNS-1) tijolo.j++;break; // p direita
-                case TECLA_ESPACO: 
-                    if(tijolo.orientacao==ORIENTACAO_RIGHT)
-                        tijolo.orientacao = ORIENTACAO_UP;
-                    else
-                        tijolo.orientacao++;
-
-                    //inverte dimenos dos tijolo
-                    int aux = tijolo.width;
-                    tijolo.width = tijolo.height;
-                    tijolo.height = aux; 
-
-                    //bug do canto da tela
-                    if (tijolo.j < (tijolo.width/2))
-                        tijolo.j = (tijolo.width/2);
-                    else if (tijolo.j > COLUMNS - (tijolo.width/2)-1)
-                        tijolo.j = COLUMNS - (tijolo.width/2)-1;
+                case TECLA_ESPACO: rotate(&tijolo);
+                break;
         }
     }
     printf("\n");
     system("pause");
-
     return 0;
 }

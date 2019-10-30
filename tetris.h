@@ -59,3 +59,13 @@ void printMatrix(char matrix[ROWS][COLUMNS]);
 //desenhar barra usando simbolo do caracter
 void drawBar(char matrix[ROWS][COLUMNS], Bloco barra, int simbolo);
 
+//inicializar a peça do tipo barra
+void initBar(Bloco *barra);
+
+//rotaciona blocos
+void rotate(Bloco *bloco);
+
+//verifica a colisão de blocos
+int collisionDetect(char matrix[ROWS][COLUMNS], Bloco barra);
+
+
