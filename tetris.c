@@ -97,11 +97,22 @@ void rotate(Bloco *bloco){
         bloco->j = (bloco->width/2);
     else if (bloco->j > COLUMNS - (bloco->width/2)-1)
         bloco->j = COLUMNS - (bloco->width/2)-1;
+
+        //colisão
 }
 int collisionDetect(char matrix[ROWS][COLUMNS], Bloco barra){
     int retorno = 0;
-    //colisao com a base
-    if((barra.i + barra.height/2) >= (ROWS-1))
-        retorno = 1;
+    
+    /* para a barra em pé na base ou quando colide com outros elementos */
+    if((barra.i + barra.height/2) > (ROWS) || matrix[barra.i+1][barra.j] != EMPTY)
+        if(barra.orientacao == ORIENTACAO_UP || barra.orientacao == ORIENTACAO_DOWN)
+            retorno = 1;
+
+    /* para a barra deitada na base ou quando colide com outros elementos */
+    if((barra.i + barra.width/2) > (ROWS) || matrix[barra.i+1][barra.j] != EMPTY || matrix[barra.i+1][barra.j+1] != EMPTY
+        || matrix[barra.i+1][barra.j+2] != EMPTY || matrix[barra.i+1][barra.j-1] != EMPTY || matrix[barra.i+1][barra.j-2] != EMPTY)
+        if(barra.orientacao == ORIENTACAO_LEFT || barra.orientacao == ORIENTACAO_RIGHT)
+            retorno = 1;           
+
     return retorno;
 }
