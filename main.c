@@ -57,12 +57,14 @@ int main(){
     if(kbhit()) keypressed = getch();
     if(keypressed==ARROWS) keypressed = getch();
                 switch(keypressed){
-                case LEFT:
                 case TECLA_a: 
-                case TECLA_A :if (tijolo.j - (tijolo.width/2) > 0) tijolo.j--;break; //p esquerda
+                case TECLA_A :
+                case LEFT:
+                    if(matrix[tijolo.i][tijolo.j-3] == EMPTY) if (tijolo.j - (tijolo.width/2) > 0) tijolo.j--;break; //p esquerda
                 case TECLA_d:
+                case TECLA_D: 
                 case RIGHT: 
-                case TECLA_D: if (tijolo.j + (tijolo.width/2) < COLUMNS-1) tijolo.j++;break; // p direita
+                    if(matrix[tijolo.i][tijolo.j+3] == EMPTY) if (tijolo.j + (tijolo.width/2) < COLUMNS-1) tijolo.j++;break; // p direita
                 case TECLA_ESPACO: rotate(&tijolo);
                 break;
         }
